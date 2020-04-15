@@ -414,6 +414,9 @@ nav .nav-container .nav-links .nav-link:hover:after {
   padding: 0 10px;
   color: #a0a0a0;
 }
+.container #contact p {
+  margin-bottom: 2rem;
+}
 .container #contact form {
   display: flex;
   justify-content: space-between;
