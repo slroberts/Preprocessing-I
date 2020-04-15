@@ -141,6 +141,7 @@ body {
 
 // Main CSS
 // -----------------------------------
+@import url("https://fonts.googleapis.com/css2?family=Khula:wght@600&display=swap");
 html {
   font-size: 62.5%;
 }
@@ -148,8 +149,8 @@ html {
 //Variables
 @primary: #1369fa;
 @secondary: #b3d8ff;
-@accent: cadetBlue;
-
+@accent: #034188;
+@black: #181818;
 @font-weight: 600;
 
 //Mixins
@@ -167,10 +168,18 @@ html {
   margin-bottom: 2rem;
 }
 
+.heading-stack {
+  font-weight: @font-weight;
+  line-height: 2.25;
+  color: @primary;
+  font-family: "Khula", sans-serif;
+  letter-spacing: -0.1rem;
+}
+
 .font-stack {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  font-size: 1.75rem;
+  font-size: 1.7rem;
   line-height: 2.8rem;
 }
 
@@ -179,12 +188,28 @@ html {
   padding-bottom: 4vw;
 }
 
+.button {
+  background-color: @primary;
+  color: white;
+  padding: 1.25rem 2.5rem;
+  border-radius: 2.5rem;
+  font-size: 1.6rem;
+  text-decoration: none;
+  border: none;
+  transition: all 1s ease-out;
+
+  &:hover {
+    background-color: @black / 0.4;
+  }
+}
+
 /*-----------------------------------
 -----------------------------------*/
 
 body {
   .padding();
   .font-stack();
+  color: @black;
 
   max-width: 1024px;
   margin: 0 auto;
@@ -197,9 +222,7 @@ body {
 h1,
 h2,
 h3 {
-  font-weight: @font-weight;
-  line-height: 2.5;
-  color: @primary;
+  .heading-stack();
 }
 
 h1 {
@@ -207,16 +230,25 @@ h1 {
 }
 
 h2 {
-  font-size: 2.25rem;
+  font-size: 2.4rem;
+  color: @secondary;
 }
 
 h3 {
-  font-size: 1.85rem;
-  color: black;
+  font-size: 2rem;
+  color: @accent;
 }
 
 section {
   .section();
+
+  &:not(:last-child) {
+    border-bottom: solid thin rgb(238, 238, 240);
+  }
+}
+
+header {
+  width: 100%;
 }
 
 nav {
@@ -241,8 +273,8 @@ nav {
       background-image: url(/imgs/sr-logo-symbol.png);
       background-size: contain;
       background-repeat: no-repeat;
-      width: 80px;
-      height: 57px;
+      width: 56px;
+      height: 40px;
       margin: 0 auto;
 
       @media (min-width: 800px) {
@@ -265,7 +297,7 @@ nav {
       }
 
       @media (max-width: 800px) {
-        background-color: #050149;
+        background-color: @accent;
         padding: 1rem 0;
         margin-bottom: -2rem;
       }
@@ -283,12 +315,11 @@ nav {
           content: "";
           position: absolute;
           left: 0;
-          width: 1px;
+          width: 0;
           height: 0.3rem;
           background-color: white;
           display: none;
-
-          transition: all 10s ease-in-out;
+          transition: all 5s ease-out;
         }
 
         &:hover:after {
@@ -301,37 +332,43 @@ nav {
 }
 
 .container {
-  margin-top: 12rem;
+  margin-top: 4rem;
+
+  @media (max-width: 800px) {
+    margin-top: 10rem;
+  }
 
   #about {
     p {
       .add-space();
     }
-
-    .btn {
-      background-color: @primary;
-      color: white;
-      padding: 1.25rem 2.5rem;
-      border-radius: 2.5rem;
-      font-size: 1.6rem;
-      text-decoration: none;
+    div {
+      padding-top: 2rem;
+      .add-space();
+      .btn {
+        .button();
+      }
     }
   }
 
   #skills {
     .flex();
 
-    header {
-      width: 100%;
-    }
-
-    div {
+    .skills-list {
       @media (min-width: 501px) {
+        width: 20%;
+      }
+
+      @media (max-width: 800px) {
         width: 48%;
+      }
+
+      @media (max-width: 500px) {
+        width: 100%;
       }
     }
 
-    div:not(:last-child) {
+    .skills-list:not(:last-child) {
       .add-space();
     }
 
@@ -340,19 +377,100 @@ nav {
       margin-bottom: 1.5rem;
     }
 
-    ul {
-      li {
-        font-size: 1.6rem;
-      }
-    }
-
     @media (max-width: 500px) {
       flex-direction: column;
+    }
+  }
+
+  #experience {
+    .flex();
+    flex-direction: row;
+
+    .work:not(:last-child) {
+      .add-space();
+    }
+
+    .work {
+      width: 48%;
+
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+
+      .company {
+        color: @primary;
+        font-size: 1.7rem;
+        padding-left: 0.5rem;
+      }
+
+      .location,
+      .duration {
+        color: @black / 0.15;
+        margin-top: -1.5rem;
+        font-size: 1.6rem;
+      }
+
+      .duration {
+        margin-top: 0;
+        .add-space();
+        color: @black;
+        font-weight: 600;
+
+        span {
+          font-size: 1.45rem;
+          font-weight: 600;
+          color: @primary / 0.65;
+        }
+
+        span:before {
+          content: "/";
+          padding: 0 10px;
+          color: @black / 0.15;
+        }
+      }
+    }
+  }
+
+  #contact {
+    form {
+      .flex();
+
+      .form-group {
+        width: 48%;
+        .add-space();
+
+        .form-label {
+          .highlight {
+            color: crimson;
+          }
+        }
+
+        .form-input {
+          width: 100%;
+          padding: 1.5rem;
+          font-size: 1.4rem;
+          border: solid thin @secondary;
+        }
+
+        &:last-of-type {
+          width: 100%;
+        }
+      }
+
+      .form-button {
+        .button();
+      }
     }
   }
 }
 
 footer {
-  .section();
+  background-color: @accent;
+  color: white;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  padding: 1rem 0;
   font-size: 1.5rem;
+  text-align: center;
 }
