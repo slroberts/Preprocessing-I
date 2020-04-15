@@ -4,56 +4,314 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
 body {
-	line-height: 1;
+  line-height: 1;
 }
-ol, ul {
-	list-style: none;
+ol,
+ul {
+  list-style: none;
 }
-blockquote, q {
-	quotes: none;
+blockquote,
+q {
+  quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 /* Set every element's box-sizing to border-box */
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-html, body {
-    height: 100%;
+html,
+body {
+  height: 100%;
 }
 
+// Main CSS
+// -----------------------------------
+html {
+  font-size: 62.5%;
+}
+
+//Variables
+@primary: #1369fa;
+@secondary: gainsboro;
+@accent: cadetBlue;
+
+@font-weight: 600;
+
+//Mixins
+.flex {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+}
+
+.padding {
+  padding: 4vw;
+}
+
+.add-space {
+  margin-bottom: 2rem;
+}
+
+.font-stack {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.75rem;
+  line-height: 2.8rem;
+}
+
+.section {
+  padding-top: 4vw;
+  padding-bottom: 4vw;
+}
+
+/*-----------------------------------
+-----------------------------------*/
+
+body {
+  .padding();
+  .font-stack();
+
+  max-width: 1024px;
+  margin: 0 auto;
+
+  @media (max-width: 800px) {
+    width: 100%;
+  }
+}
+
+h1,
+h2,
+h3 {
+  font-weight: @font-weight;
+  line-height: 2.5;
+  color: @primary;
+}
+
+h1 {
+  font-size: 2.75rem;
+}
+
+h2 {
+  font-size: 2.25rem;
+}
+
+h3 {
+  font-size: 1.85rem;
+  color: black;
+}
+
+section {
+  .section();
+}
+
+nav {
+  .flex();
+  padding: 2rem 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: lighten(@primary, 25%);
+
+  //Brand
+  .brand {
+    background-image: url(/imgs/sr-logo-symbol.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 80px;
+    height: 57px;
+    margin: 0 auto;
+  }
+
+  //Nav Links
+  .nav-links {
+    .flex();
+    justify-content: space-around;
+    width: 100vw;
+    margin-top: 1rem;
+
+    .nav-link {
+      text-decoration: none;
+      color: black;
+      position: relative;
+
+      &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 1px;
+        height: 0.3rem;
+        background-color: white;
+        display: none;
+
+        transition: all 10s ease-in-out;
+      }
+
+      &:hover:after {
+        display: flex;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.container {
+  margin-top: 12rem;
+
+  #about {
+    p:not(:last-child) {
+      .add-space();
+    }
+  }
+
+  #skills {
+    .flex();
+
+    header {
+      width: 100%;
+    }
+
+    div {
+      @media (min-width: 800px) {
+        width: 48%;
+      }
+    }
+
+    div:not(:last-child) {
+      .add-space();
+    }
+
+    h3 {
+      border-bottom: solid thin @primary;
+      margin-bottom: 1.5rem;
+    }
+
+    ul {
+      li {
+        font-size: 1.6rem;
+      }
+    }
+
+    @media (max-width: 500px) {
+      flex-direction: column;
+    }
+  }
+}
+
+footer {
+  .section();
+  font-size: 1.5rem;
+}
